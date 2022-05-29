@@ -1,4 +1,3 @@
-from cProfile import label
 import numpy as np
 import matplotlib.pyplot as plt
 from scipy.integrate import quad
@@ -80,7 +79,7 @@ def exercise_2():
         f_var = np.var(f_x)
 
         I_precise.append(f_avg)
-        S_precise.append(f_var)
+        S_precise.append(np.sqrt(f_var))
 
         # calculate f(x) point samples
         f_x = f(rnd_points)
@@ -90,7 +89,7 @@ def exercise_2():
         f_var = np.var(f_x)
 
         I.append(f_avg)
-        S.append(f_var)
+        S.append(np.sqrt(f_var))
 
     # plot f(x)
     figure, axis = plt.subplots(1, 2)
@@ -136,21 +135,21 @@ def exercise_3():
 
     # calculate the denominator
     rho_x = np.array([density(point) for point in points])
-    mass = np.average(rho_x)
-    S_mass = np.var(rho_x)
+    volume = np.average(rho_x)
+    S_volume = np.var(rho_x)
 
     # calculate the nominator
     x_i_x = np.array([rho_x[i]*points[i] for i in range(N)])
     x_i = np.zeros(3)
     S_x_i = np.zeros(3)
     for i in range(3):
-        x_i[i] = np.average(x_i_x[:, i])/mass
+        x_i[i] = np.average(x_i_x[:, i])/volume
         S_x_i[i] = np.var(x_i_x[:, i])
 
     # calculate error propagation
     S = np.zeros(3)
     for i in range(3):
-        S[i] = S_x_i[i]/mass + x_i[i]/mass**2 * S_mass
+        S[i] = S_x_i[i]/volume + x_i[i]/volume**2 * S_volume
 
     print(
         f"x = ({x_i[0]:.2f}, {x_i[1]:.2f}, {x_i[2]:.2f}) ± ({S[0]:.2f}, {S[1]:.2f}, {S[2]:.2f})")
@@ -158,5 +157,5 @@ def exercise_3():
 
 if __name__ == "__main__":
     # exercise_1()
-    # exercise_2()
-    exercise_3()
+    exercise_2()
+    # exercise_3()

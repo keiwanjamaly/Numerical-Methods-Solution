@@ -23,7 +23,7 @@ class Runge_Kutta():
     def rk_step(self, h):
         # the specific definition of the Runge-Kutta step, which should be
         # implemented in a child class
-        pass
+        raise NotImplementedError()
 
     def rk_solve(self):
         # the runge-kutta solver
@@ -38,7 +38,7 @@ class Runge_Kutta():
                 x_new, y_new = self.rk_step(self.h, x_new, y_new)
                 # perform 2*h step
                 x_new_2h, y_new_2h = self.rk_step(
-                    self.h, self.x[-1], self.y[-1])
+                    self.h*2, self.x[-1], self.y[-1])
 
                 # calculate error
                 delta = norm(y_new - y_new_2h)

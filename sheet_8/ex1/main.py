@@ -28,7 +28,7 @@ def L_2(u, delta_x):
 
 
 def main():
-    methods = ["FTCS", "LAX", "Leapfrog", "Lax–Wendroff"]
+    methods = ["FTCS", "LAX", "Leapfrog", "Lax–Wendroff", "analytic"]
     systems = [(L_1, initial_condition), (L_2, initial_condition_2)]
     for (system, ic) in systems:
         for method in methods:

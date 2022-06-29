@@ -15,6 +15,8 @@ class System:
             self.solver = self.__Leapfrog
         elif solver == "Lax–Wendroff":
             self.solver = self.__Lax_Wendroff
+        elif solver == "analytic":
+            self.solver = self.__analytical
         else:
             raise ValueError("Unknown solver")
 
@@ -28,6 +30,7 @@ class System:
             ic), self.x.shape[0]), dtype=np.ndarray)
         self.y[0] = ic
         self.t_end = t_end
+        self.initial_condition = inital_conditions
 
     def __set_initial_conditions(self, inital_conditions):
         return inital_conditions(self.x)
@@ -56,12 +59,15 @@ class System:
         return y[i - 1] - 2 * delta_t * self.L(y[i], self.delta_x)
 
     def __Lax_Wendroff(self, i, delta_t, y):
-        correction = np.zeros(y[i].shape)
         factor = (delta_t / self.delta_x) ** 2 / 2
         correction = factor * (np.roll(y[i], 1, axis=1) - 2 * y[i] + np.roll(y[i], -1, axis=1))
         return y[i] - delta_t * self.L(y[i], self.delta_x) + correction
 
+    def __analytical(self, i, delta_t, y):
+        return self.initial_condition((self.x - delta_t * i) % 1)
+
     def plot(self):
+        # TODO: make compacring plots
         number_of_plots = 4
         n = len(self.t)
 

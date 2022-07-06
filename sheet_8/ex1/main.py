@@ -16,7 +16,7 @@ def initial_condition_2(x, x_0, sigma):
 
 
 def diff(u, dx):
-    return (np.roll(u, 1) - np.roll(u, -1)) / (2 * dx)
+    return -(np.roll(u, 1) - np.roll(u, -1)) / (2 * dx)
 
 
 def L_1(u, delta_x):

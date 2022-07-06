@@ -77,10 +77,9 @@ class System:
             ax.plot_surface(
                 self.x, self.y, self.solution[t_pos], cmap='viridis', edgecolor='none')
             ax.set_title(f't={(t_pos * self.delta_t):.3f}', y=1)
+            ax.set_zlim([-1.5, 1.0])
 
         plt.show()
-
-        return
 
 
 def main():

@@ -95,7 +95,7 @@ class Solver:
 
 
 def main():
-    for method in ["analytic", "FTCS", "Dufort_Frankel", "BTCS", "Crank_Nicholson"][-1:]:
+    for method in ["analytic", "FTCS", "Dufort_Frankel", "BTCS", "Crank_Nicholson"]:
         x = Solver(method)
         x.solve()
         x.plot()
